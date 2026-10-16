@@ -129,7 +129,8 @@
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const cur = { yaw: base.yaw, pitch: base.pitch };
   const target = { yaw: base.yaw, pitch: base.pitch };
-  let W, H, f, dpr, raf = 0;
+  let W, H, f, dpr, raf = 0, phase = 0, last = 0, onScreen = true;
+  const PERIOD = 4;   // seconds for the wave to advance one wavelength
 
   const clamp = (v, c, r) => Math.max(c - r, Math.min(c + r, v));
   const mix = (c, t) => `rgb(${c.map((v, i) => Math.round(v * (1 - t) + BG[i] * t)).join(',')})`;
@@ -168,8 +169,8 @@
     axis([x0, 0, 0], [x0, 165, 0], { t: 'E', col: mix(RED, 0) }, AXIS);
     axis([x0, 0, 0], [x0, 0, 165], { t: 'B', col: mix(BLUE, 0) }, AXIS);
 
-    const e = t => [t, A * Math.sin(K * (t - x0)), 0];
-    const b = t => [t, 0, A * Math.sin(K * (t - x0))];
+    const e = t => [t, A * Math.sin(K * (t - x0) - phase), 0];
+    const b = t => [t, 0, A * Math.sin(K * (t - x0) - phase)];
     const items = [], N = 160;
     for (const [fn, col] of [[e, RED], [b, BLUE]]) {
       let prev = P(...fn(x0));
@@ -194,14 +195,20 @@
     }
   }
 
-  function step() {
+  function step(ts) {
     raf = 0;
+    const animating = !reduce && onScreen && !document.hidden;
+    if (animating) {
+      const dt = last ? Math.min(ts - last, 50) : 16;
+      last = ts;
+      phase = (phase + dt / 1000 * 2 * Math.PI / PERIOD) % (2 * Math.PI);
+    } else last = 0;
     cur.yaw += (target.yaw - cur.yaw) * 0.16;
     cur.pitch += (target.pitch - cur.pitch) * 0.16;
     const done = Math.abs(target.yaw - cur.yaw) < 5e-4 && Math.abs(target.pitch - cur.pitch) < 5e-4;
     if (done) { cur.yaw = target.yaw; cur.pitch = target.pitch; }
     draw();
-    if (!done) raf = requestAnimationFrame(step);
+    if (animating || !done) raf = requestAnimationFrame(step);
   }
   function go() {
     if (reduce) { cur.yaw = target.yaw; cur.pitch = target.pitch; draw(); }
@@ -268,6 +275,11 @@
   document.getElementById('year').textContent = new Date().getFullYear();
   window.addEventListener('resize', size);
   size();
+  go();
+  document.addEventListener('visibilitychange', go);
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(es => { onScreen = es[0].isIntersecting; go(); }).observe(cv);
+  }
   if (document.fonts) document.fonts.ready.then(draw);
 })();
 </script>
