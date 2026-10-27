@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Joshua Turi</title>
+<meta name="description" content="Joshua Turi, aspiring IC engineer. B.S. Computer Engineering @ NJIT.">
+<meta name="color-scheme" content="dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { color-scheme: dark; --bg:#0b0c0e; --ink:#ececec; --muted:#8a8f98; --line:#23262b; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; background:var(--bg); color:var(--ink); }
+  body { font:400 1rem/1.6 "Instrument Sans", system-ui, sans-serif; }
+  .page { max-width:45rem; margin:0 auto; padding:0 1.5rem; }
+  header { padding:3rem 0 0; }
+  h1 { margin:0; font-weight:600; font-size:clamp(1.75rem,4vw,2.25rem); letter-spacing:-.01em; }
+  .sub { margin:.25rem 0 0; color:var(--muted); }
+  .hero { padding:.5rem 0 0; }
+  canvas { display:block; width:100%; height:min(50vh, 24rem); min-height:260px; cursor:grab; touch-action:pan-y; }
+  canvas:active { cursor:grabbing; }
+  canvas:focus-visible { outline:2px solid #5b616b; outline-offset:4px; }
+  .projects { max-width:42rem; border-top:1px solid var(--line); padding:2.5rem 0 1rem; }
+  #projects { border-top:0; padding-top:1.25rem; }
+  .links { display:flex; flex-wrap:wrap; justify-content:space-between; gap:.5rem 1.5rem; padding-top:.75rem; }
+  .links a, .links button { color:#b4b9c1; font:inherit; text-decoration:none; background:none; border:0; padding:0; cursor:pointer; }
+  .links a:hover, .links button:hover { text-decoration:underline; text-underline-offset:3px; }
+  .links a:focus-visible, .links button:focus-visible { outline:2px solid #5b616b; outline-offset:3px; text-decoration:underline; }
+  .links a[href*="linkedin"]:hover, .links a[href*="linkedin"]:focus-visible { color:#5c9dff; }
+  .links a[href*="github"]:hover, .links a[href*="github"]:focus-visible { color:#ffffff; }
+  .links button:hover, .links button:focus-visible { color:#ff5c5c; }
+  @media (max-width: 36rem) {
+    header { padding-top:2rem; }
+    canvas { height:62vw; min-height:210px; }
+    .links { flex-direction:column; align-items:flex-start; gap:0; }
+    .links a, .links button { padding:.5rem 0; text-align:left; -webkit-tap-highlight-color:transparent; }
+    .project h3.dated { flex-wrap:wrap; justify-content:flex-start; }
+  }
+  footer { padding:2rem 0 3rem; color:var(--muted); font-size:.9rem; }
+  #projects h2 { color:#ff5c5c; }
+  #experience h2 { color:#5c9dff; }
+  .projects h2 { margin:0 0 .5rem; font-size:1.125rem; font-weight:500; }
+  .projects p { margin:0; color:var(--muted); }
+  .project { padding:1.25rem 0; border-top: 1px solid var(--line); }
+  .project:first-of-type { border-top:0; padding-top:.75rem; }
+  .project h3 { margin:0; font-size:1rem; font-weight:600; display:flex; flex-wrap:wrap; gap:.25rem 1rem; align-items:baseline; }
+  .project h3 span { font-weight:400; font-size:.9rem; color:var(--muted); }
+  .project .org { margin-top:.15rem; font-size:.9rem; color:var(--muted); }
+  .project .org + p { margin-top:.5rem; }
+  .project p { margin:.35rem 0 0; max-width:42rem; }
+  .project h3.dated { justify-content:space-between; flex-wrap:nowrap; }
+  .project h3.dated span { white-space:nowrap; }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <h1>Joshua Turi</h1>
+    <p class="sub">Aspiring IC engineer<br>B.S. Computer Engineering @ NJIT</p>
+  </header>
+
+  <main>
+    <div class="hero">
+      <canvas id="c" tabindex="0" role="img"
+        aria-label="3D plot of a linearly polarized electromagnetic wave: electric field in red, magnetic field in blue. Move the mouse over it, drag, or use arrow keys to pan and tilt slightly."></canvas>
+    </div>
+  </main>
+
+  <section class="projects" id="projects">
+    <h2>Projects</h2>
+    <article class="project">
+      <h3>All-Sky Imager System <span>Linux, Python, Bash</span></h3>
+      <p>Raspberry Pi system that records data on its own, keeping time from GPS instead of a network, built to survive Antarctic conditions. Developed with the Korea Polar Research Institute.</p>
+    </article>
+    <article class="project">
+      <h3>FM Radio Transceiver <span>DSP, VHDL, KiCad</span></h3>
+      <p>FSK modulation and demodulation pipeline in VHDL, plus a PCB for the mixer and audio filter and amplifier. Second place at IEEE NJIT AP-S Networking Night.</p>
+    </article>
+    <article class="project">
+      <h3>FPGA-Based Digital Oscilloscope <span>VHDL, Vivado, MATLAB</span></h3>
+      <p>Samples analog signals with a 20th-order FIR filter and trigger detection, and draws the waveform at XGA resolution and an 85 Hz refresh rate.</p>
+    </article>
+    <article class="project">
+      <h3>CPU and Cache Performance Analysis <span>gem5, C, Linux</span></h3>
+      <p>Statically compiled C benchmark run in gem5 to study CPU and memory performance, comparing L1 and L2 cache sizes and associativity through execution time, CPI/IPC, and miss rates.</p>
+    </article>
+    <article class="project">
+      <h3>Full Adder Circuit <span>HSPICE, Synopsys Custom Compiler</span></h3>
+      <p>Transistor-level schematic and layout, checked with DRC and LVS and simulated in HSPICE.</p>
+    </article>
+  </section>
+
+  <section class="projects" id="experience">
+    <h2>Experience</h2>
+    <article class="project">
+      <h3 class="dated">Undergraduate Research Assistant <span>Jan 2025 &ndash; Present</span></h3>
+      <div class="org">Center for Solar-Terrestrial Research, NJIT</div>
+      <p>Building Linux-based computers that collect ionospheric data on their own, and deploying radio and antenna equipment for NASA's Radio JOVE project.</p>
+    </article>
+    <article class="project">
+      <h3 class="dated">Director of Experiential Learning (prev. Officer) <span>Feb 2025 &ndash; Present</span></h3>
+      <div class="org">IEEE NJIT Chapter</div>
+      <p>Leading the MakeNJIT hardware hackathon, hosting 225+ attendees over two days. Running the chapter's experiential learning program, including weekly project groups that guide 50+ students through research, design, and implementation of technical projects.</p>
+    </article>
+  </section>
+
+  <section class="projects" id="contact">
+    <h2>Contact</h2>
+    <div class="links">
+      <a href="https://www.linkedin.com/in/joshua-turi">linkedin.com/in/joshua-turi</a>
+      <a href="https://github.com/j0shti">github.com/j0shti</a>
+      <button type="button" id="email" aria-live="polite" title="Copy email address">jt694 [at] njit [dot] edu</button>
+    </div>
+  </section>
+
+  <footer>&copy; <span id="year">2026</span> Joshua Turi</footer>
+</div>
+
+<script>
+(() => {
+  const cv = document.getElementById('c'), ctx = cv.getContext('2d');
+  const BG = [11, 12, 14], RED = [255, 92, 92], BLUE = [92, 157, 255], AXIS = [107, 113, 123], TEXT = '#8a8f98';
+  const L = 700, A = 110, K = 2 * Math.PI * 3 / L, CAM = 1400;
+
+  // Home orientation: propagation axis horizontal, E vertical, B toward lower-left.
+  const base = { yaw: -0.562, pitch: 0.247 };
+  const SHEAR = Math.sin(base.pitch) * Math.sin(base.yaw) / Math.cos(base.pitch);
+  const hoverRange = { yaw: 0.09, pitch: 0.06 };   // follow-the-mouse range
+  const dragRange  = { yaw: 0.50, pitch: 0.35 };   // drag range
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const cur = { yaw: base.yaw, pitch: base.pitch };
+  const target = { yaw: base.yaw, pitch: base.pitch };
+  let W, H, f, dpr, raf = 0, phase = 0, last = 0, onScreen = true;
+  const PERIOD = 4;   // seconds for the wave to advance one wavelength
+
+  const clamp = (v, c, r) => Math.max(c - r, Math.min(c + r, v));
+  const mix = (c, t) => `rgb(${c.map((v, i) => Math.round(v * (1 - t) + BG[i] * t)).join(',')})`;
+
+  // world: x = propagation, y = E (up), z = B (toward viewer)
+  function P(x, y, z) {
+    const cp = Math.cos(cur.pitch), sp = Math.sin(cur.pitch), cy = Math.cos(cur.yaw), sy = Math.sin(cur.yaw);
+    const y1 = y * cp - z * sp, z1 = y * sp + z * cp;
+    const x2 = x * cy + z1 * sy, z2 = -x * sy + z1 * cy;
+    const s = f * CAM / (CAM - z2);
+    return [W / 2 + (x2 - SHEAR * y1) * s, H / 2 - y1 * s, z2, s];
+  }
+
+  function axis(a, b, label, col) {
+    const p = P(...a), q = P(...b), c = mix(col, 0);
+    const u = Math.max(.6, Math.min(1, f / 0.6));
+    ctx.strokeStyle = c; ctx.fillStyle = c; ctx.lineWidth = 1.25;
+    ctx.beginPath(); ctx.moveTo(p[0], p[1]); ctx.lineTo(q[0], q[1]); ctx.stroke();
+    const ang = Math.atan2(q[1] - p[1], q[0] - p[0]);
+    ctx.beginPath(); ctx.moveTo(q[0], q[1]);
+    ctx.lineTo(q[0] - 10 * u * Math.cos(ang - .4), q[1] - 10 * u * Math.sin(ang - .4));
+    ctx.lineTo(q[0] - 10 * u * Math.cos(ang + .4), q[1] - 10 * u * Math.sin(ang + .4));
+    ctx.closePath(); ctx.fill();
+    ctx.fillStyle = label.col; ctx.font = `500 ${Math.round(15 * Math.max(.78, u))}px "Instrument Sans", system-ui, sans-serif`;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(label.t, q[0] + 16 * u * Math.cos(ang), q[1] + 16 * u * Math.sin(ang));
+  }
+
+  function draw() {
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.globalAlpha = 1;
+
+    const x0 = -L / 2;
+    axis([x0, 0, 0], [L / 2 + 30, 0, 0], { t: 'z', col: TEXT }, AXIS);
+    axis([x0, 0, 0], [x0, 165, 0], { t: 'E', col: mix(RED, 0) }, AXIS);
+    axis([x0, 0, 0], [x0, 0, 165], { t: 'B', col: mix(BLUE, 0) }, AXIS);
+
+    const e = t => [t, A * Math.sin(K * (t - x0) - phase), 0];
+    const b = t => [t, 0, A * Math.sin(K * (t - x0) - phase)];
+    const items = [], N = 160;
+    for (const [fn, col] of [[e, RED], [b, BLUE]]) {
+      let prev = P(...fn(x0));
+      for (let i = 1; i <= N; i++) {
+        const c = P(...fn(x0 + L * i / N));
+        items.push({ a: prev, b: c, col, w: 2.6, fade: 0, z: (prev[2] + c[2]) / 2 });
+        prev = c;
+      }
+      for (let t = x0 + L / 24; t < L / 2; t += L / 24) {
+        const q = P(...fn(t));
+        items.push({ a: P(t, 0, 0), b: q, col, w: 1, fade: .68, z: q[2] });
+      }
+    }
+    items.sort((m, n) => (m.w > 1.5) - (n.w > 1.5) || m.z - n.z);   // thin lines first, then waves; each far to near
+    for (const it of items) {
+      const depth = Math.max(0, Math.min(1, (it.z + 200) / 400));
+      // depth shading by blending toward the background keeps every line fully opaque (solid)
+      const fade = it.fade + (1 - it.fade) * 0.4 * (1 - depth);
+      ctx.strokeStyle = mix(it.col, fade);
+      ctx.lineWidth = it.w * it.a[3] / f;
+      ctx.beginPath(); ctx.moveTo(it.a[0], it.a[1]); ctx.lineTo(it.b[0], it.b[1]); ctx.stroke();
+    }
+  }
+
+  function step(ts) {
+    raf = 0;
+    const animating = !reduce && onScreen && !document.hidden;
+    if (animating) {
+      const dt = last ? Math.min(ts - last, 50) : 16;
+      last = ts;
+      phase = (phase + dt / 1000 * 2 * Math.PI / PERIOD) % (2 * Math.PI);
+    } else last = 0;
+    cur.yaw += (target.yaw - cur.yaw) * 0.16;
+    cur.pitch += (target.pitch - cur.pitch) * 0.16;
+    const done = Math.abs(target.yaw - cur.yaw) < 5e-4 && Math.abs(target.pitch - cur.pitch) < 5e-4;
+    if (done) { cur.yaw = target.yaw; cur.pitch = target.pitch; }
+    draw();
+    if (animating || !done) raf = requestAnimationFrame(step);
+  }
+  function go() {
+    if (reduce) { cur.yaw = target.yaw; cur.pitch = target.pitch; draw(); }
+    else if (!raf) raf = requestAnimationFrame(step);
+  }
+  const home = () => { target.yaw = base.yaw; target.pitch = base.pitch; go(); };
+
+  function size() {
+    dpr = window.devicePixelRatio || 1;
+    W = cv.clientWidth; H = cv.clientHeight;
+    cv.width = W * dpr; cv.height = H * dpr;
+    f = Math.min(W * (W < 520 ? 0.84 : 0.78) / (L + 80), H * 0.9 / 420);
+    draw();
+  }
+
+  let drag = null;
+  cv.addEventListener('pointerdown', e => {
+    drag = { x: e.clientX, y: e.clientY, yaw: target.yaw, pitch: target.pitch };
+    cv.setPointerCapture(e.pointerId);
+  });
+  cv.addEventListener('pointermove', e => {
+    if (drag) {
+      target.yaw = clamp(drag.yaw + (e.clientX - drag.x) * 0.006, base.yaw, dragRange.yaw);
+      target.pitch = clamp(drag.pitch - (e.clientY - drag.y) * 0.006, base.pitch, dragRange.pitch);
+      go();
+    } else if (e.pointerType === 'mouse') {
+      const r = cv.getBoundingClientRect();
+      const nx = ((e.clientX - r.left) / r.width - 0.5) * 2;
+      const ny = ((e.clientY - r.top) / r.height - 0.5) * 2;
+      target.yaw = base.yaw - nx * hoverRange.yaw;
+      target.pitch = base.pitch + ny * hoverRange.pitch;
+      go();
+    }
+  });
+  const release = () => { drag = null; home(); };
+  cv.addEventListener('pointerup', release);
+  cv.addEventListener('pointercancel', release);
+  cv.addEventListener('pointerleave', () => { if (!drag) home(); });
+  cv.addEventListener('keydown', e => {
+    const d = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, 1], ArrowDown: [0, -1] }[e.key];
+    if (!d) return;
+    e.preventDefault();
+    target.yaw = clamp(target.yaw + d[0] * 0.08, base.yaw, 0.2);
+    target.pitch = clamp(target.pitch + d[1] * 0.08, base.pitch, 0.14);
+    go();
+  });
+  cv.addEventListener('keyup', home);
+  cv.addEventListener('blur', home);
+
+  const em = document.getElementById('email'), label = em.textContent;
+  const addr = ['jt694', 'njit.edu'].join('@');
+  let timer;
+  em.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(addr); }
+    catch {
+      const t = document.createElement('textarea');
+      t.value = addr; t.style.position = 'fixed'; t.style.opacity = '0';
+      document.body.appendChild(t); t.select(); document.execCommand('copy'); t.remove();
+    }
+    em.textContent = 'Copied to clipboard';
+    clearTimeout(timer);
+    timer = setTimeout(() => { em.textContent = label; }, 1600);
+  });
+  document.getElementById('year').textContent = new Date().getFullYear();
+  window.addEventListener('resize', size);
+  size();
+  go();
+  document.addEventListener('visibilitychange', go);
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(es => { onScreen = es[0].isIntersecting; go(); }).observe(cv);
+  }
+  if (document.fonts) document.fonts.ready.then(draw);
+})();
+</script>
+</body>
+</html>
